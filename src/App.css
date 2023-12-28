@@ -1,0 +1,73 @@
+.App {
+  text-align: center;
+}
+
+.vt-logo {
+  height: 100px;
+  pointer-events: none;
+  margin: 20px;
+}
+
+.App-header {
+  background-color: #2b2b2b;
+  height: 140px;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header > *{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  background-color: #2b2b2b;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 10px
+}
+
+.sidenav {
+  height: 7%;
+  width: 100%;
+  max-height: 110px;
+  z-index: 1;
+  background-color: #eaeaea;
+  transition: .5s ease;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.div-table {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+}
+
+.sidenav > *{
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
