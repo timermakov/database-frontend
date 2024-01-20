@@ -1,3 +1,4 @@
+import React from 'react'
 import {useState} from "react";
 import vtLogo from './icons/vt.png'
 
@@ -8,6 +9,7 @@ import RaceTable from "./tables/RaceTable";
 import BuildingTable from "./tables/BuildingTable";
 import MapTable from "./tables/MapTable";
 import ResourceTable from "./tables/ResourceTable";
+import ResourceTypeTable from "./tables/ResourceTypeTable";
 import ObstacleTable from "./tables/ObstacleTable";
 
 
@@ -39,6 +41,10 @@ function App() {
     setComponent('ResourceTable');
   };
 
+  const handleClickResourcesTypes = () => {
+    setComponent('ResourceTypeTable');
+  };
+
   const handleClickObstacles = () => {
     setComponent('ObstacleTable');
   };
@@ -64,6 +70,9 @@ function App() {
     case 'ResourceTable':
       ComponentToRender = <ResourceTable/>;
       break;
+    case 'ResourceTypeTable':
+      ComponentToRender = <ResourceTypeTable/>;
+      break;
     case 'ObstacleTable':
       ComponentToRender = <ObstacleTable />;
       break;
@@ -88,6 +97,7 @@ function App() {
         <BuildingsButton onClick={handleClickBuildings}></BuildingsButton>
         <MapsButton onClick={handleClickMaps}></MapsButton>
         <ResourcesButton onClick={handleClickResources}></ResourcesButton>
+        <ResourcesTypesButton onClick={handleClickResourcesTypes}></ResourcesTypesButton>
         <ObstaclesButton onClick={handleClickObstacles}></ObstaclesButton>
       </div>
       <div className="div-table">
@@ -129,6 +139,12 @@ function App() {
   function ResourcesButton({onClick}) {
     return (
         <button onClick={onClick}>Resources</button>
+    );
+  }
+
+  function ResourcesTypesButton({onClick}) {
+    return (
+        <button onClick={onClick}>Resources Types</button>
     );
   }
 

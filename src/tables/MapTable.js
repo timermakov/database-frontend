@@ -20,17 +20,17 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [mapName, setMapName] = useState('');
-    const [mapWidth, setMapWidth] = useState();
-    const [mapHeight, setMapHeight] = useState();
+    const [name, setMapName] = useState('');
+    const [width, setMapWidth] = useState();
+    const [height, setMapHeight] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            mapName: mapName,
-            mapWidth: mapWidth,
-            mapHeight: mapHeight
+            name: name,
+            width: width,
+            height: height
         };
 
         fetch('http://localhost:8080/map/add', {
@@ -57,16 +57,16 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="mapName">MapName</label>
-                <input className="form-control" id="mapName" value={mapName} onChange={e => setMapName(e.target.value)}/>
+                <label htmlFor="name">MapName</label>
+                <input className="form-control" id="name" value={name} onChange={e => setMapName(String(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="mapWidth">MapWidth</label>
-                <input className="form-control" id="mapWidth" value={mapWidth} onChange={e => setMapWidth(Number(e.target.value))}/>
+                <label htmlFor="width">MapWidth</label>
+                <input className="form-control" id="width" value={width} onChange={e => setMapWidth(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="mapHeight">MapHeight</label>
-                <input className="form-control" id="mapHeight" value={mapHeight} onChange={e => setMapHeight(Number(e.target.value))}/>
+                <label htmlFor="height">MapHeight</label>
+                <input className="form-control" id="height" value={height} onChange={e => setMapHeight(Number(e.target.value))}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>
@@ -124,17 +124,17 @@ export default function MapTable() {
             <p className="Table-header">Maps</p>
                 <tbody>
                 <tr>
-                    <th>MapId</th>
-                    <th>MapName</th>
-                    <th>MapWidth</th>
-                    <th>MapHeight</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Width</th>
+                    <th>Height</th>
                 </tr>
                 {data.map((item, index) => (
                     <tr key={index}>
                         <td>{item.id}</td>
-                        <td>{item.mapName}</td>
-                        <td>{item.mapWidth}</td>
-                        <td>{item.mapHeight}</td>
+                        <td>{item.name}</td>
+                        <td>{item.width}</td>
+                        <td>{item.height}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -154,13 +154,13 @@ export default function MapTable() {
 }
 
 const FormRemove = () => {
-    const [mapId, setMapId] = useState();
+    const [id, setMapId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            mapId: mapId
+            id: id
         };
 
         fetch('http://localhost:8080/map/remove', {
@@ -187,8 +187,8 @@ const FormRemove = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="mapId">mapId</label>
-                <input type={"number"} className="form-control" id="mapId" value={mapId} onChange={e => setMapId(e.target.value)}/>
+                <label htmlFor="id">id</label>
+                <input type={"number"} className="form-control" id="id" value={id} onChange={e => setMapId(e.target.value)}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>

@@ -23,7 +23,7 @@ const FormAdd = () => {
     const [obstacleName, setObstacleName] = useState('');
     const [locationX, setLocationX] = useState();
     const [locationY, setLocationY] = useState();
-    const [mapId, setMapId] = useState();
+    const [id, setMapId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -32,7 +32,7 @@ const FormAdd = () => {
             obstacleName: obstacleName,
             locationX: locationX,
             locationY: locationY,
-            mapId: mapId
+            id: id
         };
 
         fetch('http://localhost:8080/obstacle/add', {
@@ -77,8 +77,8 @@ const FormAdd = () => {
                        onChange={e => setLocationY(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="mapId">mapId</label>
-                <input type="number" className="form-control" id="mapId" value={mapId}
+                <label htmlFor="id">id</label>
+                <input type="number" className="form-control" id="id" value={id}
                        onChange={e => setMapId(Number(e.target.value))}/>
             </div>
             <div className="form-group">
@@ -149,7 +149,7 @@ export default function ObstacleTable() {
                     <td>{item.obstacleName}</td>
                     <td>{item.locationX}</td>
                     <td>{item.locationY}</td>
-                    <td>{item.mapId}</td>
+                    <td>{item.id}</td>
                 </tr>
             ))}
             </tbody>

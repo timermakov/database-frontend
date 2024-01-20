@@ -20,27 +20,17 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [id, setId] = useState();
-    const [map_id, setMap_id] = useState();
-    const [resource_type_id, setResource_type_id] = useState();
-    const [quantity, setQuantity] = useState();
-    const [x, setX] = useState();
-    const [y, setY] = useState();
 
+    const [name, setName] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            id: id,
-            map_id: map_id,
-            resource_type_id: resource_type_id,
-            quantity: quantity,
-            x: x,
-            y: y
+            name: name
         };
 
-        fetch('http://localhost:8080/resource/add', {
+        fetch('http://localhost:8080/resource_type/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,28 +55,8 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="id">id</label>
-                <input className="form-control" id="id" value={id} onChange={e => setId(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="map_id">map_id</label>
-                <input className="form-control" id="map_id" value={map_id} onChange={e => setMap_id(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="resource_type_id">resource_type_id</label>
-                <input className="form-control" id="resource_type_id" value={resource_type_id} onChange={e => setResource_type_id(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="quantity">quantity</label>
-                <input className="form-control" id="quantity" value={quantity} onChange={e => setQuantity(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="x">x</label>
-                <input className="form-control" id="x" value={x} onChange={e => setX(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="y">y</label>
-                <input className="form-control" id="y" value={y} onChange={e => setY(Number(e.target.value))}/>
+                <label htmlFor="name">Name</label>
+                <input className="form-control" id="name" value={name} onChange={e => setName(e.target.value)}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>
@@ -100,11 +70,11 @@ export default function ResourceTable() {
     const [data, setData] = useState([]);
 
     const fetchData = () => {
-        fetch(`http://localhost:8080/resource/all`)
+        fetch(`http://localhost:8080/resource_type/all`)
             .then((response) => response.json())
             .then((actualData) => {
                 console.log(actualData);
-                setData(actualData.resourceResponses);
+                setData(actualData.resourceTypeResponses);
                 console.log(data);
             })
             .catch((err) => {
@@ -141,24 +111,16 @@ export default function ResourceTable() {
     return (
         <div className={"content-div"}>
             <div className="left-div">
-                <p className="Table-header">Resources</p>
+                <p className="Table-header">Resources Types</p>
                 <tbody>
                 <tr>
                     <th>Id</th>
-                    <th>Map_id</th>
-                    <th>Resource_type_id</th>
-                    <th>Quantity</th>
-                    <th>X</th>
-                    <th>Y</th>
+                    <th>Name</th>
                 </tr>
                 {data.map((item, index) => (
                     <tr key={index}>
                         <td>{item.id}</td>
-                        <td>{item.map_id}</td>
-                        <td>{item.resource_type_id}</td>
-                        <td>{item.quantity}</td>
-                        <td>{item.x}</td>
-                        <td>{item.y}</td>
+                        <td>{item.name}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -175,7 +137,6 @@ export default function ResourceTable() {
             </div>
         </div>
     );
-
 }
 
 const FormRemove = () => {
@@ -188,7 +149,7 @@ const FormRemove = () => {
             id: id
         };
 
-        fetch('http://localhost:8080/resource/remove', {
+        fetch('http://localhost:8080/resource_type/remove', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
