@@ -20,13 +20,13 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [raceName, setRaceName] = useState('');
+    const [name, setName] = useState('');
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            raceName: raceName,
+            name: name,
         };
 
         fetch('http://localhost:8080/race/add', {
@@ -56,8 +56,8 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="name">RaceName</label>
-                <input className="form-control" id="raceName" value={raceName} onChange={e => setRaceName(e.target.value)}/>
+                <label htmlFor="name">Name</label>
+                <input className="form-control" id="name" value={name} onChange={e => setName(e.target.value)}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>
@@ -114,13 +114,13 @@ export default function RaceTable() {
                 <p className="Table-header">Races</p>
                 <tbody>
                 <tr>
-                    <th>RaceId</th>
-                    <th>RaceName</th>
+                    <th>Id</th>
+                    <th>Name</th>
                 </tr>
                 {data.map((item, index) => (
                     <tr key={index}>
                         <td>{item.id}</td>
-                        <td>{item.raceName}</td>
+                        <td>{item.name}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -141,13 +141,13 @@ export default function RaceTable() {
 }
 
 const FormRemove = () => {
-    const [raceId, setRaceId] = useState();
+    const [id, setId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            raceId: raceId
+            id: id
         };
 
         fetch('http://localhost:8080/race/remove', {
@@ -174,8 +174,8 @@ const FormRemove = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="raceId">raceId</label>
-                <input type={"number"} className="form-control" id="raceId" value={raceId} onChange={e => setRaceId(e.target.value)}/>
+                <label htmlFor="id">Id</label>
+                <input type={"number"} className="form-control" id="id" value={id} onChange={e => setId(e.target.value)}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>

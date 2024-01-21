@@ -19,23 +19,25 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [healthId, setHealthId] = useState();
-    const [damageId, setDamageId] = useState();
-    const [vespeneGas, setVespeneGas] = useState();
+    const [name, setName] = useState();
+    const [health_id, setHealth_id] = useState();
+    const [damage_id, setDamage_id] = useState();
+    const [vespene_gas, setVespene_gas] = useState();
     const [minerals, setMinerals] = useState();
     const [supply, setSupply] = useState();
-    const [raceId, setRaceId] = useState();
+    const [race_id, setRace_id] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            healthId: healthId,
-            damageId: damageId,
-            vespeneGas: vespeneGas,
+            name: name,
+            health_id: health_id,
+            damage_id: damage_id,
+            vespene_gas: vespene_gas,
             minerals: minerals,
             supply: supply,
-            raceId: raceId
+            race_id: race_id
         };
 
         fetch('http://localhost:8080/building/add', {
@@ -62,34 +64,39 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="healthId">healthId</label>
-                <input type="number" className="form-control" id="healthId" value={healthId}
-                       onChange={e => setHealthId(Number(e.target.value))}/>
+                <label htmlFor="name">Name</label>
+                <input className="form-control" id="name" value={name}
+                       onChange={e => setName(e.target.value)}/>
             </div>
             <div className="form-group">
-                <label htmlFor="damageId">damageId</label>
-                <input type="number" className="form-control" id="damageId" value={damageId}
-                       onChange={e => setDamageId(Number(e.target.value))}/>
+                <label htmlFor="health_id">Health Id</label>
+                <input type="number" className="form-control" id="health_id" value={health_id}
+                       onChange={e => setHealth_id(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="vespeneGas">vespeneGas</label>
-                <input type="number" className="form-control" id="vespeneGas" value={vespeneGas}
-                       onChange={e => setVespeneGas(Number(e.target.value))}/>
+                <label htmlFor="damage_id">Damage Id</label>
+                <input type="number" className="form-control" id="damage_id" value={damage_id}
+                       onChange={e => setDamage_id(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="minerals">minerals</label>
+                <label htmlFor="vespene_gas">Vespene Gas</label>
+                <input type="number" className="form-control" id="vespene_gas" value={vespene_gas}
+                       onChange={e => setVespene_gas(Number(e.target.value))}/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="minerals">Minerals</label>
                 <input type="number" className="form-control" id="minerals" value={minerals}
                        onChange={e => setMinerals(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="supply">supply</label>
+                <label htmlFor="supply">Supply</label>
                 <input type="number" className="form-control" id="supply" value={supply}
                        onChange={e => setSupply(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="raceId">raceId</label>
-                <input type="number" className="form-control" id="raceId" value={raceId}
-                       onChange={e => setRaceId(Number(e.target.value))}/>
+                <label htmlFor="race_id">Race Id</label>
+                <input type="number" className="form-control" id="race_id" value={race_id}
+                       onChange={e => setRace_id(Number(e.target.value))}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>
@@ -147,23 +154,25 @@ export default function BuildingTable() {
             <p className="Table-header">Buildings</p>
             <tbody>
             <tr>
-                <th>BuildingId</th>
-                <th>HealthId</th>
-                <th>DamageId</th>
-                <th>VespeneGas</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Health Id</th>
+                <th>Damage Id</th>
+                <th>Vespene Gas</th>
                 <th>Minerals</th>
                 <th>Supply</th>
-                <th>RaceId</th>
+                <th>Race Id</th>
             </tr>
             {data.map((item, index) => (
                 <tr key={index}>
                     <td>{item.id}</td>
-                    <td>{item.healthId}</td>
-                    <td>{item.damageId}</td>
-                    <td>{item.vespeneGas}</td>
+                    <td>{item.name}</td>
+                    <td>{item.health_id}</td>
+                    <td>{item.damage_id}</td>
+                    <td>{item.vespene_gas}</td>
                     <td>{item.minerals}</td>
                     <td>{item.supply}</td>
-                    <td>{item.raceId}</td>
+                    <td>{item.race_id}</td>
                 </tr>
             ))}
             </tbody>
@@ -184,13 +193,13 @@ export default function BuildingTable() {
 }
 
 const FormRemove = () => {
-    const [buildingId, setBuildingId] = useState();
+    const [id, setId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            buildingId: buildingId
+            id: id
         };
 
         fetch('http://localhost:8080/building/remove', {
@@ -218,9 +227,9 @@ const FormRemove = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="buildingId">buildingId</label>
-                <input type={"number"} className="form-control" id="buildingId" value={buildingId}
-                       onChange={e => setBuildingId(Number(e.target.value))}/>
+                <label htmlFor="id">Id</label>
+                <input type={"number"} className="form-control" id="id" value={id}
+                       onChange={e => setId(Number(e.target.value))}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>

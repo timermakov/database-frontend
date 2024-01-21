@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Table.css';
 import plusLogo from "../icons/bx-plus-circle.svg";
-import minusLogo from "../icons/bx-minus-circle.svg"
+import minusLogo from "../icons/bx-minus-circle.svg";
 
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -20,32 +20,27 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [name, setName] = useState('');
-    const [locationX, setLocationX] = useState();
-    const [locationY, setLocationY] = useState();
-    const [mapId, setMapId] = useState();
+    const [hitpoints, setHitpoints] = useState('');
+    const [armor, setArmor] = useState();
+    const [shield, setShield] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            name: name,
-            locationX: locationX,
-            locationY: locationY,
-            mapId: mapId
+            hitpoints: hitpoints,
+            armor: armor,
+            shield: shield
         };
 
-        fetch('http://localhost:8080/obstacle/add', {
+        fetch('http://localhost:8080/health/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         })
-            .then(response => {
-                console.log(response)
-                return response.json()
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.exceptionMessage)
                     alert(data.exceptionMessage)
@@ -62,24 +57,16 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input className="form-control" id="name" value={name}
-                       onChange={e => setName(e.target.value)}/>
+                <label htmlFor="hitpoints">Hitpoints</label>
+                <input className="form-control" id="hitpoints" value={hitpoints} onChange={e => setHitpoints(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="locationX">locationX</label>
-                <input type="number" className="form-control" id="locationX" value={locationX}
-                       onChange={e => setLocationX(Number(e.target.value))}/>
+                <label htmlFor="armor">Armor</label>
+                <input className="form-control" id="armor" value={armor} onChange={e => setArmor(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="locationY">locationY</label>
-                <input type="number" className="form-control" id="locationY" value={locationY}
-                       onChange={e => setLocationY(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="map_id">map_id</label>
-                <input type="number" className="form-control" id="map_id" value={mapId}
-                       onChange={e => setMapId(Number(e.target.value))}/>
+                <label htmlFor="shield">Shield</label>
+                <input className="form-control" id="shield" value={shield} onChange={e => setShield(Number(e.target.value))}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>
@@ -89,15 +76,15 @@ const FormAdd = () => {
 };
 
 
-export default function ObstacleTable() {
+export default function HealthTable() {
     const [data, setData] = useState([]);
 
     const fetchData = () => {
-        fetch(`http://localhost:8080/obstacle/all`)
+        fetch(`http://localhost:8080/health/all`)
             .then((response) => response.json())
             .then((actualData) => {
                 console.log(actualData);
-                setData(actualData.obstacleResponses);
+                setData(actualData.healthResponses);
                 console.log(data);
             })
             .catch((err) => {
@@ -134,25 +121,23 @@ export default function ObstacleTable() {
     return (
         <div className={"content-div"}>
             <div className="left-div">
-            <p className="Table-header">Obstacles</p>
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>LocationX</th>
-                <th>LocationY</th>
-                <th>MapId</th>
-            </tr>
-            {data.map((item, index) => (
-                <tr key={index}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.locationX}</td>
-                    <td>{item.locationY}</td>
-                    <td>{item.mapId}</td>
+            <p className="Table-header">Health</p>
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <th>Hitpoints</th>
+                    <th>Armor</th>
+                    <th>Shield</th>
                 </tr>
-            ))}
-            </tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                        <td>{item.id}</td>
+                        <td>{item.hitpoints}</td>
+                        <td>{item.armor}</td>
+                        <td>{item.shield}</td>
+                    </tr>
+                ))}
+                </tbody>
             </div>
             <div className={"right-div"}>
                 <button onClick={openModalFormAdd}><img src={plusLogo} alt="add entity"/></button>
@@ -168,9 +153,8 @@ export default function ObstacleTable() {
     );
 }
 
-
 const FormRemove = () => {
-    const [id, setId] = useState('');
+    const [id, setId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -179,7 +163,7 @@ const FormRemove = () => {
             id: id
         };
 
-        fetch('http://localhost:8080/obstacle/remove', {
+        fetch('http://localhost:8080/health/remove', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

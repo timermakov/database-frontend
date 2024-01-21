@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Table.css';
 import plusLogo from "../icons/bx-plus-circle.svg";
-import minusLogo from "../icons/bx-minus-circle.svg"
+import minusLogo from "../icons/bx-minus-circle.svg";
 
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -20,32 +20,32 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [name, setName] = useState('');
-    const [locationX, setLocationX] = useState();
-    const [locationY, setLocationY] = useState();
-    const [mapId, setMapId] = useState();
+    const [value, setValue] = useState();
+    const [splash, setSplash] = useState();
+    const [ground, setGround] = useState();
+    const [air, setAir] = useState();
+    const [range, setRange] = useState();
+
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            name: name,
-            locationX: locationX,
-            locationY: locationY,
-            mapId: mapId
+            value: value,
+            splash: splash,
+            ground: ground,
+            air: air,
+            range: range
         };
 
-        fetch('http://localhost:8080/obstacle/add', {
+        fetch('http://localhost:8080/damage/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         })
-            .then(response => {
-                console.log(response)
-                return response.json()
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.exceptionMessage)
                     alert(data.exceptionMessage)
@@ -57,29 +57,30 @@ const FormAdd = () => {
             .catch((error) => {
                 alert('Error: ' + error);
                 console.error('Error:', error);
-            });    };
+            });
+    };
 
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input className="form-control" id="name" value={name}
-                       onChange={e => setName(e.target.value)}/>
+                <label htmlFor="value">Value</label>
+                <input className="form-control" id="value" value={value} onChange={e => setValue(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="locationX">locationX</label>
-                <input type="number" className="form-control" id="locationX" value={locationX}
-                       onChange={e => setLocationX(Number(e.target.value))}/>
+                <label htmlFor="splash">Splash</label>
+                <input className="form-control" id="splash" value={splash} onChange={e => setSplash(Boolean(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="locationY">locationY</label>
-                <input type="number" className="form-control" id="locationY" value={locationY}
-                       onChange={e => setLocationY(Number(e.target.value))}/>
+                <label htmlFor="ground">Ground</label>
+                <input className="form-control" id="ground" value={ground} onChange={e => setGround(Boolean(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="map_id">map_id</label>
-                <input type="number" className="form-control" id="map_id" value={mapId}
-                       onChange={e => setMapId(Number(e.target.value))}/>
+                <label htmlFor="air">Air</label>
+                <input className="form-control" id="air" value={air} onChange={e => setAir(Boolean(e.target.value))}/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="range">Range</label>
+                <input className="form-control" id="range" value={range} onChange={e => setRange(Number(e.target.value))}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>
@@ -89,15 +90,15 @@ const FormAdd = () => {
 };
 
 
-export default function ObstacleTable() {
+export default function DamageTable() {
     const [data, setData] = useState([]);
 
     const fetchData = () => {
-        fetch(`http://localhost:8080/obstacle/all`)
+        fetch(`http://localhost:8080/damage/all`)
             .then((response) => response.json())
             .then((actualData) => {
                 console.log(actualData);
-                setData(actualData.obstacleResponses);
+                setData(actualData.damageResponses);
                 console.log(data);
             })
             .catch((err) => {
@@ -134,25 +135,27 @@ export default function ObstacleTable() {
     return (
         <div className={"content-div"}>
             <div className="left-div">
-            <p className="Table-header">Obstacles</p>
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>LocationX</th>
-                <th>LocationY</th>
-                <th>MapId</th>
-            </tr>
-            {data.map((item, index) => (
-                <tr key={index}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.locationX}</td>
-                    <td>{item.locationY}</td>
-                    <td>{item.mapId}</td>
+                <p className="Table-header">Resources</p>
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <th>Value</th>
+                    <th>Splash</th>
+                    <th>Ground</th>
+                    <th>Air</th>
+                    <th>Range</th>
                 </tr>
-            ))}
-            </tbody>
+                {data.map((item, index) => (
+                    <tr key={index}>
+                        <td>{item.id}</td>
+                        <td>{item.value}</td>
+                        <td>{item.splash.toString()}</td>
+                        <td>{item.ground.toString()}</td>
+                        <td>{item.air.toString()}</td>
+                        <td>{item.range}</td>
+                    </tr>
+                ))}
+                </tbody>
             </div>
             <div className={"right-div"}>
                 <button onClick={openModalFormAdd}><img src={plusLogo} alt="add entity"/></button>
@@ -166,11 +169,11 @@ export default function ObstacleTable() {
             </div>
         </div>
     );
+
 }
 
-
 const FormRemove = () => {
-    const [id, setId] = useState('');
+    const [id, setId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -179,7 +182,7 @@ const FormRemove = () => {
             id: id
         };
 
-        fetch('http://localhost:8080/obstacle/remove', {
+        fetch('http://localhost:8080/damage/remove', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

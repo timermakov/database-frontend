@@ -57,15 +57,15 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="name">MapName</label>
+                <label htmlFor="name">Name</label>
                 <input className="form-control" id="name" value={name} onChange={e => setMapName(String(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="width">MapWidth</label>
+                <label htmlFor="width">Width</label>
                 <input className="form-control" id="width" value={width} onChange={e => setMapWidth(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="height">MapHeight</label>
+                <label htmlFor="height">Height</label>
                 <input className="form-control" id="height" value={height} onChange={e => setMapHeight(Number(e.target.value))}/>
             </div>
             <div className="form-group">
@@ -154,7 +154,7 @@ export default function MapTable() {
 }
 
 const FormRemove = () => {
-    const [id, setMapId] = useState();
+    const [id, setId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -188,7 +188,7 @@ const FormRemove = () => {
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
                 <label htmlFor="id">id</label>
-                <input type={"number"} className="form-control" id="id" value={id} onChange={e => setMapId(e.target.value)}/>
+                <input type={"number"} className="form-control" id="id" value={id} onChange={e => setId(e.target.value)}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>

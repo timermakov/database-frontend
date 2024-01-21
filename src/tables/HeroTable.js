@@ -55,22 +55,22 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="heroName">heroName</label>
+                <label htmlFor="heroName">Name</label>
                 <input className="form-control" id="heroName" value={heroName}
                        onChange={e => setHeroName(e.target.value)}/>
             </div>
             <div className="form-group">
-                <label htmlFor="healthId">healthId</label>
+                <label htmlFor="healthId">HealthId</label>
                 <input type="number" className="form-control" id="healthId" value={healthId}
                        onChange={e => setHealthId(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="damageId">damageId</label>
+                <label htmlFor="damageId">DamageId</label>
                 <input type="number" className="form-control" id="damageId" value={damageId}
                        onChange={e => setDamageId(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="raceId">raceId</label>
+                <label htmlFor="raceId">RaceId</label>
                 <input type="number" className="form-control" id="raceId" value={raceId}
                        onChange={e => setRaceId(Number(e.target.value))}/>
             </div>
@@ -129,8 +129,8 @@ export default function HeroTable() {
             <p className="Table-header">Heroes</p>
                 <tbody>
                 <tr>
-                    <th>HeroId</th>
-                    <th>HeroName</th>
+                    <th>Id</th>
+                    <th>Name</th>
                     <th>HealthId</th>
                     <th>DamageId</th>
                     <th>RaceId</th>
@@ -162,13 +162,13 @@ export default function HeroTable() {
 }
 
 const FormRemove = () => {
-    const [heroId, setHeroId] = useState();
+    const [id, setId] = useState();
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            heroId: heroId
+            id: id
         };
 
         fetch('http://localhost:8080/hero/remove', {
@@ -195,8 +195,8 @@ const FormRemove = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="heroId">heroId</label>
-                <input type={"number"} className="form-control" id="heroId" value={heroId} onChange={e => setHeroId(e.target.value)}/>
+                <label htmlFor="id">Id</label>
+                <input type={"number"} className="form-control" id="id" value={id} onChange={e => setId(e.target.value)}/>
             </div>
             <div className="form-group">
                 <button className="form-control btn btn-primary" type="submit">Submit</button>

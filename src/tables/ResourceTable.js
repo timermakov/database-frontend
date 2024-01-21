@@ -20,7 +20,6 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const FormAdd = () => {
-    const [id, setId] = useState();
     const [map_id, setMap_id] = useState();
     const [resource_type_id, setResource_type_id] = useState();
     const [quantity, setQuantity] = useState();
@@ -32,7 +31,6 @@ const FormAdd = () => {
         event.preventDefault();
 
         const data = {
-            id: id,
             map_id: map_id,
             resource_type_id: resource_type_id,
             quantity: quantity,
@@ -65,27 +63,23 @@ const FormAdd = () => {
     return (
         <form onSubmit={handleFormSubmit}>
             <div className="form-group">
-                <label htmlFor="id">id</label>
-                <input className="form-control" id="id" value={id} onChange={e => setId(Number(e.target.value))}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="map_id">map_id</label>
+                <label htmlFor="map_id">Map Id</label>
                 <input className="form-control" id="map_id" value={map_id} onChange={e => setMap_id(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="resource_type_id">resource_type_id</label>
+                <label htmlFor="resource_type_id">Resource Type Id</label>
                 <input className="form-control" id="resource_type_id" value={resource_type_id} onChange={e => setResource_type_id(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="quantity">quantity</label>
+                <label htmlFor="quantity">Quantity</label>
                 <input className="form-control" id="quantity" value={quantity} onChange={e => setQuantity(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="x">x</label>
+                <label htmlFor="x">X</label>
                 <input className="form-control" id="x" value={x} onChange={e => setX(Number(e.target.value))}/>
             </div>
             <div className="form-group">
-                <label htmlFor="y">y</label>
+                <label htmlFor="y">Y</label>
                 <input className="form-control" id="y" value={y} onChange={e => setY(Number(e.target.value))}/>
             </div>
             <div className="form-group">
@@ -145,8 +139,8 @@ export default function ResourceTable() {
                 <tbody>
                 <tr>
                     <th>Id</th>
-                    <th>Map_id</th>
-                    <th>Resource_type_id</th>
+                    <th>MapId</th>
+                    <th>ResourceTypeId</th>
                     <th>Quantity</th>
                     <th>X</th>
                     <th>Y</th>

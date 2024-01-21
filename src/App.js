@@ -6,6 +6,8 @@ import './App.css';
 import HeroTable from "./tables/HeroTable";
 import UnitTable from "./tables/UnitTable";
 import RaceTable from "./tables/RaceTable";
+import HealthTable from "./tables/HealthTable";
+import DamageTable from "./tables/DamageTable";
 import BuildingTable from "./tables/BuildingTable";
 import MapTable from "./tables/MapTable";
 import ResourceTable from "./tables/ResourceTable";
@@ -22,7 +24,15 @@ function App() {
   };
 
   const handleClickUnits = () => {
-    setComponent('ProductivityStatisticsTable');
+    setComponent('UnitTable');
+  };
+
+  const handleClickHealths = () => {
+    setComponent('HealthTable');
+  };
+
+  const handleClickDamages = () => {
+    setComponent('DamageTable');
   };
 
   const handleClickRaces = () => {
@@ -55,11 +65,17 @@ function App() {
     case 'HeroTable':
       ComponentToRender = <HeroTable />;
       break;
-    case 'ProductivityStatisticsTable':
+    case 'UnitTable':
       ComponentToRender = <UnitTable />;
       break;
     case 'RaceTable':
       ComponentToRender = <RaceTable />;
+      break;
+    case 'HealthTable':
+      ComponentToRender = <HealthTable />;
+      break;
+    case 'DamageTable':
+      ComponentToRender = <DamageTable />;
       break;
     case 'BuildingTable':
       ComponentToRender = <BuildingTable />;
@@ -93,6 +109,8 @@ function App() {
       <div className="sidenav">
         <HeroesButton onClick={handleClickHeroes}></HeroesButton>
         <UnitsButton onClick={handleClickUnits}></UnitsButton>
+        <HealthButton onClick={handleClickHealths}></HealthButton>
+        <DamageButton onClick={handleClickDamages}></DamageButton>
         <RacesButton onClick={handleClickRaces}></RacesButton>
         <BuildingsButton onClick={handleClickBuildings}></BuildingsButton>
         <MapsButton onClick={handleClickMaps}></MapsButton>
@@ -115,6 +133,18 @@ function App() {
   function UnitsButton({onClick}) {
     return (
         <button onClick={onClick}>Units</button>
+    );
+  }
+
+  function HealthButton({onClick}) {
+    return (
+        <button onClick={onClick}>Health</button>
+    );
+  }
+
+  function DamageButton({onClick}) {
+    return (
+        <button onClick={onClick}>Damage</button>
     );
   }
 
